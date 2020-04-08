@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getArticles } = require('../../data/articles');
+const {
+     getArticles,
+     addArticle
+} = require('../../data/articles');
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
@@ -11,7 +14,22 @@ router.get('/', async function(req, res, next) {
         console.log(err);
         res.send(500, 'Internal Server Issue, check logs');
     }
-
 });
+
+/* POST article creation */
+router.post('/', async function( req, res, next) {
+    try{
+        const data = await addArticle(req.body);
+        res.send(data);
+    } catch(err){
+        if(err.msg){
+            console.log(err);
+            res.status(400).send(err.msg);
+        }else{
+            console.log(err);
+            res.status(500).send('Internal Server Issue, check logs'); 
+        }
+    }
+})
 
 module.exports = router;
