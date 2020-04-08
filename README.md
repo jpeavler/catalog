@@ -2,6 +2,7 @@
 **Wiki of Tech Info used as a reference**
 
 ### To-Do Tasks
+
 - HTTP Verbs using Express Router per Resource Type
     - GET
     - POST
@@ -26,3 +27,17 @@
         - Upsert (UPDATE/PUT)
         - UpdateOne/UpdateMany (UPDATE/PATCH)
         - Remove (DELETE)
+
+### Data Model
+
+ARTICLE
+```
+{
+    "title": STRING,
+    "author": STRING,
+    "link": URL as a STRING,
+    "desc": STRING,
+    "topics": ARRAY os STRING,
+    "dateAdded": DATE
+}
+```
