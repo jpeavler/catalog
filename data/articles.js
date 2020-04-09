@@ -12,13 +12,13 @@ const colName = 'articles';
 const settings = { useUnifiedTopology: true }
 
 // Article Validator Function (Title & Link required fields, Link needs proper format)
-const validArticle = (article) => {
+const invalidArticle = (article) => {
     let result;
     if(!article.title){
         result = 'Articles require a Title';
     }else if(!article.link){
         result = 'Articles require a Link';
-    }else if(validURL(article.link)){
+    }else if(!validURL(article.link)){
         result = 'Link not valid';
     }
     return result;  //If the article is valid, result will return undefined
@@ -30,7 +30,7 @@ const validURL = (str) => {
       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
       '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
       '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-    return !!pattern.test(str);
+    return pattern.test(str);
   }
 
 const getArticles = () => {
@@ -47,10 +47,10 @@ const getArticles = () => {
                     if(err){
                         reject(err);
                      } else{ 
-                    console.log("Found the following articles");
-                    console.log(docs)
-                    resolve(docs);
-                    client.close();
+                        console.log("Found the following articles");
+                        console.log(docs);
+                        resolve(docs);
+                        client.close();
                     }
                 });
             }
@@ -60,22 +60,35 @@ const getArticles = () => {
 }
 
 const addArticle = (articles) => {
-    //const invalidArticles = articles.filer()
     const iou = new Promise ((resolve, reject) => {
         if(!Array.isArray(articles)){
-            reject({msg:'Need to send an Array of Articles'})
+            reject({ msg:'Need to send an Array of Articles'});
         } else {
-            MongoClient.connect(url, settings, async function(err, client){
-                if(err){
-                    reject(err);
-                }else{
-                    console.log('Connected succesfully to server to POST an Article');
-                    const db = client.db(dbName);
-                    const collection = db.collection(colName);
-                    const results = await collection.insertMany(articles); //insertMany() returns a promise
-                    resolve(results.ops);
+            const invalidArticles = articles.filter((article) => {
+                const check = invalidArticle(article);
+                if(check){
+                    article.invalid = check;
                 }
+                return article.invalid;
             });
+            if(invalidArticles.length > 0){
+                reject({
+                    msg: 'Some Articles were invalid',
+                    data: invalidArticles
+                })
+            }else {
+                MongoClient.connect(url, settings, async function(err, client){
+                    if(err){
+                        reject(err);
+                    }else{
+                        console.log('Connected succesfully to server to POST an Article');
+                        const db = client.db(dbName);
+                        const collection = db.collection(colName);
+                        const results = await collection.insertMany(articles); //insertMany() returns a promise
+                        resolve(results.ops);
+                    }
+                });
+            }
         }
         
     });

@@ -23,13 +23,12 @@ router.post('/', async function( req, res, next) {
         res.send(data);
     } catch(err){
         if(err.msg){
-            console.log(err);
-            res.status(400).send(err.msg);
+            res.status(400).send(err);
         }else{
             console.log(err);
             res.status(500).send('Internal Server Issue, check logs'); 
         }
     }
-})
+});
 
 module.exports = router;
