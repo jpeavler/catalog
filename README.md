@@ -37,7 +37,7 @@ ARTICLE
     "author": STRING,
     "link": URL as a STRING,
     "desc": STRING,
-    "topics": ARRAY os STRING,
+    "topics": ARRAY of STRINGs,
     "dateAdded": DATE
 }
 ```
