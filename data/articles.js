@@ -84,6 +84,9 @@ const addArticle = (articles) => {
                         console.log('Connected succesfully to server to POST an Article');
                         const db = client.db(dbName);
                         const collection = db.collection(colName);
+                        articles.forEach((article) => { 
+                            article.dateAdded = new Date(Date.now()).toUTCString(); 
+                        });
                         const results = await collection.insertMany(articles); //insertMany() returns a promise
                         resolve(results.ops);
                     }
