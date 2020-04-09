@@ -10,9 +10,11 @@
     <ul>
             <% for(let i = 0; i < data.length; i++) { %>
                 <li>
-                <%= data[i].title %> : <%= data[i].link %>
+                  <%= data[i].title %> : <%= data[i].link %>
+                  <button class='delete' id="<%= data[i]._id %>">Delete</button>
                 </li>
             <% } %>
     </ul>
   </body>
+  <script src='/javascripts/articles.js'></script>
 </html>
