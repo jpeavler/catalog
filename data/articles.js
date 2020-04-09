@@ -122,8 +122,19 @@ const updateArticle = (id, article) =>{
                             if(err) {
                                 reject(err);
                             } else{
-                                console.log(data);
-                                resolve('successfully updated');
+                                if(data.result.n > 0){
+                                    collection.find({_id}).toArray(
+                                        function(err, docs){
+                                            if(err){
+                                                reject(err);
+                                            }else{
+                                                resolve(docs[0]);
+                                            }
+                                        }
+                                    );
+                                } else{
+                                    resolve({error: "Nothing Happened"})
+                                }
                             }
                         });
                 } catch(err){
