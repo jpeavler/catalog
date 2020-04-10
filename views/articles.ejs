@@ -10,7 +10,7 @@
     <ul>
             <% for(let i = 0; i < data.length; i++) { %>
                 <li>
-                  <a href="<%=data[i].link%>"><%= data[i].title %></a> : <%= data[i].desc %>
+                  <a href="<%=data[i].link%>" target ="_blank"><%= data[i].title %></a> : <%= data[i].desc %>
                   <button class='delete' id="<%= data[i]._id %>">Delete</button>
                   <ul>
                     <li>Author: <%= data[i].author %></li>
