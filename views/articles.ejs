@@ -17,7 +17,6 @@
       <input type = "text" id = "topic3" placeholder = "Topic 3">
       <input type = "submit" id = "submit" value= "Add Reference">
     </form>
-  </body>
     <h3>List of <%= title %></h3>
     <ul>
             <% for(let i = 0; i < data.length; i++) { %>
@@ -38,9 +37,34 @@
                         <% if(emptyCount == data[i].topics.length) {%>No topics listed<%}%>
                       <% } %>
                     </li>
+                    <li>Article ID: <%=data[i]._id %></li>
                   </ul>
                 </li>
             <% } %>
     </ul>
+    <h3>Update an Article: Not Implemented Yet</h3>
+    <form>
+      <p>Insert Article ID to Update</p>
+      <input type = "text" id = "articleUpdate" placeholder = "Article ID">
+      <p>Pick which value to update</p>
+      <input type = "radio" id = "titleUpdate" name = "update">
+      <label for = "titleUpdate">Title</label>
+      <input type = "radio" id = "authorUpdate" name = "update">
+      <label for = "authorUpdate">Author</label>
+      <input type = "radio" id = "linkUpdate"  name = "update">
+      <label for = "linkUpdate">Link</label>
+      <input type = "radio" id = "descUpdate"  name = "update">
+      <label for = "descUpdate">Description</label>
+      <input type = "radio" id = "topic1Update"  name = "update">
+      <label for = "topic1Update">Topic 1</label>
+      <input type = "radio" id = "topic2Update"  name = "update">
+      <label for = "topic2Update">Topic 2</label>
+      <input type = "radio" id = "topic3Update"  name = "update">
+      <label for = "topic2Update">Topic 3</label>
+      <p>Input new value</p>
+      <input type = "text" id = "updateField" placeholder= "New Value">
+      <input type = "submit" id = "updateBtn" value= "Update">
+    </form>
+  </body>
   <script src='/javascripts/articles.js'></script>
 </html>
