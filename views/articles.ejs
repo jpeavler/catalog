@@ -6,24 +6,31 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>List of <%= title %></p>
+    <h3>List of <%= title %></h3>
     <ul>
             <% for(let i = 0; i < data.length; i++) { %>
                 <li>
-                  <a href="<%=data[i].link%>" target ="_blank"><%= data[i].title %></a> : <%= data[i].desc %>
+                  <a href="<%=data[i].link%>" target ="_blank"><%= data[i].title %></a> : 
+                  <%= data[i].desc %>
+                  <%if(!data[i].desc) {%>No description listed<%}%>
                   <button class='delete' id="<%= data[i]._id %>">Delete</button>
                   <ul>
-                    <li>Author: <%= data[i].author %></li>
+                    <li>Author: <% if(!data[i].author){%>No author listed<%} %>
+                      <%= data[i].author %>
+                    </li>
                     <li>
-                      Topics: <% for(let j = 0; j < data[i].topics.length; j++) { %>
+                      Topics: <% let emptyCount = 0 %>
+                        <% for(let j = 0; j < data[i].topics.length; j++) { %>
                         <%= data[i].topics[j] %>
+                        <% if(!data[i].topics[j]){emptyCount++}%>
+                        <% if(emptyCount == data[i].topics.length) {%>No topics listed<%}%>
                       <% } %>
                     </li>
                   </ul>
                 </li>
             <% } %>
     </ul>
-    <h3>Add your own show</h3>
+    <h3>Add your own Article</h3>
     <form>
       <input type = "text" id = "title" placeholder= "Title">
       <input type = "text" id = "author" placeholder= "Author">
