@@ -1,4 +1,3 @@
-const deleteButtons = document.getElementsByClassName('delete');
 const titleInput = document.getElementById('title');
 const arthorInput = document.getElementById('author');
 const linkInput = document.getElementById('link');
@@ -6,6 +5,13 @@ const descInput = document.getElementById('desc');
 const topic1Input = document.getElementById('topic1');
 const topic2Input = document.getElementById('topic2');
 const topic3Input = document.getElementById('topic3');
+const addButton = document.getElementById('submit');
+const idUpdateInput = document.getElementById('idUpdate');
+const keyUpdateInput = document.getElementById('keyUpdate');
+const valueUpdateInput = document.getElementById('valueUpdate');
+const updateButton = document.getElementById('updateBtn')
+const deleteButtons = document.getElementsByClassName('delete');
+
 
 const submitHandler = () => {
     console.log("Attempt to submit");
@@ -28,7 +34,25 @@ const submitHandler = () => {
         body: JSON.stringify(subData)
     }).then(() => window.location.replace('/articles'));
 }
-submit.addEventListener('click', submitHandler);
+addButton.addEventListener('click', submitHandler);
+
+const updateHandler = () => {
+    console.log("Attempt to update");
+    let key = keyUpdateInput.value;
+    console.log("This is the key given: ", key);
+    let updateData = {
+        [key] : valueUpdateInput.value
+    };
+    console.log("This is what we tried to give: ",updateData);
+    fetch(`/api/articles/${idUpdateInput.value}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updateData)
+    }).then(() => window.location.replace('/articles'));
+}
+updateButton.addEventListener('click', updateHandler);
 
 const deleteHandler = (event) => {
     console.log("ID: ", event.target.id);
