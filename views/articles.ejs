@@ -12,6 +12,14 @@
                 <li>
                   <a href="<%=data[i].link%>"><%= data[i].title %></a> : <%= data[i].desc %>
                   <button class='delete' id="<%= data[i]._id %>">Delete</button>
+                  <ul>
+                    <li>Author: <%= data[i].author %></li>
+                    <li>
+                      Topics: <% for(let j = 0; j < data[i].topics.length; j++) { %>
+                        <%= data[i].topics[j] %>
+                      <% } %>
+                    </li>
+                  </ul>
                 </li>
             <% } %>
     </ul>
