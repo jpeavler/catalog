@@ -3,6 +3,9 @@ const titleInput = document.getElementById('title');
 const arthorInput = document.getElementById('author');
 const linkInput = document.getElementById('link');
 const descInput = document.getElementById('desc');
+const topic1Input = document.getElementById('topic1');
+const topic2Input = document.getElementById('topic2');
+const topic3Input = document.getElementById('topic3');
 
 const submitHandler = () => {
     console.log("Attempt to submit");
@@ -10,7 +13,12 @@ const submitHandler = () => {
         'title': titleInput.value,
         'author': arthorInput.value,
         'link' : linkInput.value,
-        'desc' : descInput.value
+        'desc' : descInput.value,
+        'topics' : [
+            topic1Input.value,
+            topic2Input.value,
+            topic3Input.value
+        ]
     }]
     fetch(`/api/articles`, {
         method: 'POST',
